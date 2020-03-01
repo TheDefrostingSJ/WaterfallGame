@@ -1,17 +1,14 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"html/template"
-	"log"
+	//"log"
 	"net/http"
-	"os"
 	"regexp"
 	"time"
-	"google.golang.org/grpc"
-
-	pb "google.golang.org/grpc/examples/helloworld/helloworld"
+	client "waterfall/client"
+	server "waterfall/server"
 )
 
 // Fle Change test
@@ -110,7 +107,7 @@ const (
 
 func main() {
 
-	// Log in
+
 
 	fmt.Println("Please Login:")
 	fmt.Println("\n\nhttp://localhost:8080/view/Waterfall")
@@ -120,9 +117,12 @@ func main() {
 	http.HandleFunc("/save/", makeHandler(saveHandler))
 
 	// Round Start - Game Logic
-
-
 	http.HandleFunc("/game/", makeHandler(gameHandler))
 
+	// Log in
+	go server.StartServer()
 
+
+	//log.Fatal(http.ListenAndServe(":8080", nil))
+	time.Sleep(15 * time.Minute)
 }

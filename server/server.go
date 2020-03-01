@@ -25,7 +25,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
 }
 
-func startServer() {
+func StartServer() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

@@ -4,7 +4,7 @@ package client
 import (
 	"context"
 	"log"
-	"os"
+	//"os"
 	"time"
 
 	"google.golang.org/grpc"
@@ -12,11 +12,11 @@ import (
 )
 
 const (
-	address     = "localhost:50051"
+	address     = "localhost:8080"
 	defaultName = "world"
 )
 
-func connectClient() {
+func ConnectClient(name string) {
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
@@ -26,10 +26,7 @@ func connectClient() {
 	c := pb.NewGreeterClient(conn)
 
 	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
