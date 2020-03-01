@@ -8,6 +8,8 @@ import (
 	"regexp"
 )
 
+// Fle Change test
+
 type Page struct {
 	Title string
 	Body string
@@ -21,7 +23,7 @@ var templates = template.Must(template.ParseFiles(
 	"view.html",
 	"loginConfirm.html",
 	))
-var validPath = regexp.MustCompile("^/([a-zA-Z0-9]+)$")
+var validPath = regexp.MustCompile("^/(edit|save|view|game)/([a-zA-Z0-9]+)$")
 
 var users []string
 var round int
@@ -81,7 +83,6 @@ func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.Handl
 	return func(w http.ResponseWriter, r *http.Request) {
 			m := validPath.FindStringSubmatch(r.URL.Path)
 			if m == nil {
-					fmt.Println("should be found")
 					http.NotFound(w, r)
 					return
 			}
