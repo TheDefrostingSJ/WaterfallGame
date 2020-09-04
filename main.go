@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 	"html/template"
-	//"log"
+	"log"
 	"net/http"
 	"regexp"
 	"time"
 	//client "client"
-	server "server"
+	//server "server"
 )
 
 // Fle Change test
@@ -82,7 +82,8 @@ func gameHandler(w http.ResponseWriter, r *http.Request, title string) {
 	renderTemplate(w, "game", p)
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
+func makeHandler(fn func(http.ResponseWriter,
+												*http.Request, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 			m := validPath.FindStringSubmatch(r.URL.Path)
 			if m == nil {
@@ -106,9 +107,6 @@ const (
 )
 
 func main() {
-
-
-
 	fmt.Println("Please Login:")
 	fmt.Println("\n\nhttp://localhost:8080/view/Waterfall")
 
@@ -120,9 +118,8 @@ func main() {
 	http.HandleFunc("/game/", makeHandler(gameHandler))
 
 	// Log in
-	go server.StartServer()
+	//go server.StartServer()
 
-
-	//log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 	time.Sleep(15 * time.Minute)
 }
